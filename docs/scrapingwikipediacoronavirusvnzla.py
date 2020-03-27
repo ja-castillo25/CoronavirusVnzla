@@ -50,7 +50,7 @@ for tag in tags2:
 
 CasosPorEstado=[]
 tags3=tags1[0]('td')
-for tag in tags3[1::2]:
+for tag in tags3[1::3]:
     CasosPorEstado.append(int(tag.contents[0]))
 
 
