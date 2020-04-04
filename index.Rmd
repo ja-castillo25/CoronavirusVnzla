@@ -15,6 +15,7 @@ library(dplyr)
 Cases<-read.csv('./Cases.csv')[,-1]
 Cases_States<-read.csv('./Cases_States.csv', encoding = "UTF-8")[,-1]
 Status<-read.csv('./Status.csv')[,-1]
+Cases$Dates<-as.POSIXct(Cases$Dates,format="%d-%m-%Y")
 ```
 
 Venezuela

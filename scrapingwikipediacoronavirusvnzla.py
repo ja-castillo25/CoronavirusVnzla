@@ -19,9 +19,15 @@ casosdias=soup('span',{'style':'width: 3.5em;padding:0 0.3em 0 0; text-align:rig
 
 cantidad=[]
 
+count=0
 for tag in casosdias:
-    cantidad.append(int(tag.contents[0]))
-    
+    try:
+        cases=int(tag.contents[0])
+    except:
+        n=count-1
+        cases=int(casosdias[n].contents[0])
+    cantidad.append(cases)
+    count+=1
 #La cantidad es la suma acumulativa, hay que diferenciar i - i-1
 PorDia=[]
 PorDia.append(cantidad[0])
@@ -34,8 +40,13 @@ for i in range(1,len(cantidad)):
 Fechas=[]
 dates=soup('td',{'style':'padding-left:0.4em; padding-right:0.4em; text-align:center'})
 
-for tag in dates[0::2]:
-    Fechas.append(str(tag.contents[0]))
+for tag in dates[0::3]:
+    date=str(tag.contents[0])
+    if '2020' in date:
+        Fechas.append(date)
+    else:
+        date='20-03-2020'
+        Fechas.append(date)
     
 
 
@@ -43,7 +54,7 @@ for tag in dates[0::2]:
 
 Estados=[]
 tags1=soup('table',{'class':'wikitable sortable col3der'}) 
-tags2=tags1[0]('a')
+tags2=tags1[0]('a',title=True) #no importa que tenga title pero que tenga ese atributo
 
 for tag in tags2:
     Estados.append(str(tag.contents[0]))
@@ -84,9 +95,9 @@ for i in range(0,len(td)):
     if len(td[i])!=0:
         td1.append(td[i])
         
-Total=int(td1[12][0].contents[0])
-Muertes=int(td1[13][0].contents[0])
-Recuperados=int(td1[14][0].contents[0])
+Total=int(td1[13][0].contents[0])
+Muertes=int(td1[14][0].contents[0])
+Recuperados=int(td1[15][0].contents[0])
 Activos=Total-Recuperados    
  
        
